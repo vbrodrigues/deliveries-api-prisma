@@ -3,14 +3,20 @@ import { CreateClientUseCase } from "./CreateClientUseCase";
 
 export class CreateClientController {
     async handle(request: Request, response: Response) {
-        const { username, password } = request.body;
+        try {
 
-        const createClient = new CreateClientUseCase();
-        const client = await createClient.execute({
-            username,
-            password
-        });
+            const { username, password } = request.body;
 
-        return response.json(client);
+            const createClient = new CreateClientUseCase();
+            const client = await createClient.execute({
+                username,
+                password
+            });
+
+            return response.json(client);
+        } catch (err) {
+            console.log(err);
+            return response.status(500).json({ success: false, status: 'error', message: err.message });
+        }
     }
 }
