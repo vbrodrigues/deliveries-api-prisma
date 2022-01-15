@@ -9,6 +9,7 @@ import { CreateDeliveryController } from './modules/deliveries/useCases/createDe
 import { FindAllOpenDeliveriesController } from './modules/deliveries/useCases/findAllOpenDeliveries/FindAllOpenDeliveriesController';
 import { UpdateDeliverymanController } from './modules/deliveries/useCases/updateDeliveryman/UpdateDeliverymanController';
 import { CreateDeliverymanController } from './modules/deliveryman/useCases/createDeliveryman/CreateDeliverymanController';
+import { FindDeliverymanDeliveriesController } from './modules/deliveryman/useCases/findDeliverymanDeliveries/FindDeliverymanDeliveriesController';
 
 
 const routes = Router();
@@ -18,6 +19,7 @@ const authenticateClientController = new AuthenticateClientController();
 const findClientDeliveriesController = new FindClientDeliveriesController();
 const createDeliverymanController = new CreateDeliverymanController();
 const authenticateDeliverymanController = new AuthenticateDeliverymanController();
+const findDeliverymanDeliveriesController = new FindDeliverymanDeliveriesController();
 const createDeliveryController = new CreateDeliveryController();
 const findAllOpenDeliveriesController = new FindAllOpenDeliveriesController();
 const updateDeliverymanController = new UpdateDeliverymanController();
@@ -27,6 +29,7 @@ routes.post('/clients/authenticate', authenticateClientController.handle);
 routes.get('/clients/deliveries', ensureAuthenticateClient, findClientDeliveriesController.handle);
 routes.post('/deliveryman', createDeliverymanController.handle);
 routes.post('/deliveryman/authenticate', authenticateDeliverymanController.handle);
+routes.get('/deliveryman/deliveries', ensureAuthenticateDeliveryman, findDeliverymanDeliveriesController.handle);
 routes.post('/deliveries', ensureAuthenticateClient, createDeliveryController.handle);
 routes.get('/deliveries/open', ensureAuthenticateDeliveryman, findAllOpenDeliveriesController.handle);
 routes.put('/deliveries/:delivery_id', ensureAuthenticateDeliveryman, updateDeliverymanController.handle);
