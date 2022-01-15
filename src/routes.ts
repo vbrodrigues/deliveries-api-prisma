@@ -8,6 +8,7 @@ import { FindClientDeliveriesController } from './modules/clients/useCases/findC
 import { CreateDeliveryController } from './modules/deliveries/useCases/createDelivery/CreateDeliveryController';
 import { FindAllOpenDeliveriesController } from './modules/deliveries/useCases/findAllOpenDeliveries/FindAllOpenDeliveriesController';
 import { UpdateDeliverymanController } from './modules/deliveries/useCases/updateDeliveryman/UpdateDeliverymanController';
+import { UpdateEndDateController } from './modules/deliveries/useCases/updateEndDate/UpdateUseCaseController';
 import { CreateDeliverymanController } from './modules/deliveryman/useCases/createDeliveryman/CreateDeliverymanController';
 import { FindDeliverymanDeliveriesController } from './modules/deliveryman/useCases/findDeliverymanDeliveries/FindDeliverymanDeliveriesController';
 
@@ -23,6 +24,7 @@ const findDeliverymanDeliveriesController = new FindDeliverymanDeliveriesControl
 const createDeliveryController = new CreateDeliveryController();
 const findAllOpenDeliveriesController = new FindAllOpenDeliveriesController();
 const updateDeliverymanController = new UpdateDeliverymanController();
+const updateEndDateController = new UpdateEndDateController();
 
 routes.post('/clients', createClientController.handle);
 routes.post('/clients/authenticate', authenticateClientController.handle);
@@ -32,6 +34,7 @@ routes.post('/deliveryman/authenticate', authenticateDeliverymanController.handl
 routes.get('/deliveryman/deliveries', ensureAuthenticateDeliveryman, findDeliverymanDeliveriesController.handle);
 routes.post('/deliveries', ensureAuthenticateClient, createDeliveryController.handle);
 routes.get('/deliveries/open', ensureAuthenticateDeliveryman, findAllOpenDeliveriesController.handle);
-routes.put('/deliveries/:delivery_id', ensureAuthenticateDeliveryman, updateDeliverymanController.handle);
+routes.put('/deliveries/update-deliveryman/:delivery_id', ensureAuthenticateDeliveryman, updateDeliverymanController.handle);
+routes.put('/deliveries/update-enddate/:delivery_id', ensureAuthenticateDeliveryman, updateEndDateController.handle);
 
 export { routes };
